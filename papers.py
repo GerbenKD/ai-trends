@@ -25,7 +25,11 @@ class Papers:
     def __init__(self, papers: list[Paper]):
         self.papers = papers
 
+    def content(self):
+        return "\n\n".join([ p.content() for p in self.papers ])
 
+
+# Paper classes for papers from HuggingFace
 class HuggingFacePaper(Paper):
 
     @classmethod
