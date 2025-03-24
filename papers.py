@@ -40,8 +40,11 @@ class HuggingFacePaper(Paper):
             abstract = article_soup.find('main').find('p').get_text() # first <p> is the Abstract
 
             return cls(title, abstract)
-        except Exception:
-            logger.warning(f'Could not load HuggingFace paper {url}, returning empty paper')
+        except Exception as e:
+            logger.warning(
+                f'Could not load HuggingFace paper {url}, returning empty paper',
+                           exc_info=e
+            )
             return cls("", "")
 
 
@@ -57,8 +60,11 @@ class HuggingFacePapers(Papers):
             papers = [ HuggingFacePaper.from_url(url) for url in articles_urls ]
             return cls(papers)
 
-        except Exception:
-            logger.warning(f"Could not load year {year}, month {month} from HuggingFace papers, returning empty list")
+        except Exception as e:
+            logger.warning(
+                f"Could not load year {year}, month {month} from HuggingFace papers, returning empty list.",
+                exc_info=e
+            )
             return cls([])
 
 
